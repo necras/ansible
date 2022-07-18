@@ -1,0 +1,83 @@
+- name: Remove suckless directory for now
+  file:
+    state: absent
+    path: "{{ lookup('env', 'HOME') }}/suckless/"
+  tags:
+    - dwm
+
+- name: Create suckless directory if it does not exist
+  file:
+    path: "{{ lookup('env', 'HOME') }}/suckless"
+    state: directory
+    mode: '0755'
+  tags:
+    - dwm
+
+- name: Create xsessions directory if it does not exist (headless)
+  file:
+    path: /usr/share/xsessions
+    state: directory
+    mode: '0755'
+  tags:
+    - dwm
+
+- name: Get dmenu
+  ansible.builtin.git:
+    repo: 'https://git.suckless.org/dmenu'
+    dest: "{{ lookup('env', 'HOME') }}/suckless/dmenu"
+  tags:
+    - dwm
+
+- name: Get dwm
+  ansible.builtin.git:
+    repo: 'https://git.suckless.org/dwm'
+    dest: "{{ lookup('env', 'HOME') }}/suckless/dwm"
+  tags:
+    - dwm
+
+- name: Update terminal to alacritty
+  ansible.builtin.replace:
+    path: "{{ lookup('env', 'HOME') }}/suckless/dwm/config.def.h"
+    regexp: '"st"'
+    replace: '"alacritty"'
+  tags:
+    - dwm
+
+- name: Build suckless tools
+  become: true
+  loop:
+    - dwm
+    - dmenu
+  community.general.make:
+    chdir: "{{ lookup('env', 'HOME') }}/suckless/{{ item }}"
+    make: /usr/bin/make
+  tags:
+    - dwm
+
+- name: Install suckless tools
+  become: true
+  loop:
+    - dwm
+    - dmenu
+  community.general.make:
+    target: install
+    chdir: "{{ lookup('env', 'HOME') }}/suckless/{{ item }}"
+    make: /usr/bin/make
+  tags:
+    - dwm
+
+- name: Update/create block if needed. Create file if not exists
+  become: true
+  blockinfile:
+    path: /usr/share/xsessions/dwm.desktop
+    block: |
+      [Desktop Entry]
+      Encoding=UTF-8
+      Name=Dwm
+      Comment=the dynamic window manager
+      Exec=dwm
+      Icon=dwm
+      type=XSession
+    create: true
+  tags:
+    - dwm

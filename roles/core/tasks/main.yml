@@ -1,0 +1,34 @@
+- name: Install System Packages (build-essential)
+  become: true
+  apt:
+    name: ["build-essential", "cmake", "pkg-config", "libpthread-stubs0-dev"]
+  tags:
+    - core
+
+- name: Install System Packages QoL
+  become: true
+  apt:
+    name: ["htop", "curl", "tree", "feh", "flameshot"]
+  tags:
+    - core
+
+- name: Install neovim dependencies and lua for config
+  become: true
+  apt:
+    name: ["lua5.3", "ninja-build", "gettext", "libtool", "libtool-bin", "autoconf", "automake", "cmake", "g++", "unzip", "curl", "doxygen"]
+  tags:
+    - neovim
+
+- name: Install alacritty dependencies
+  become: true
+  apt:
+    name: ["cmake", "pkg-config", "libfreetype6-dev", "libfontconfig1-dev", "libxcb-xfixes0-dev", "libxkbcommon-dev", "python3"]
+  tags:
+    - rust_tools
+
+- name: Install dwm dependencies
+  become: true
+  apt:
+    name: ["build-essential", "libx11-dev", "libxft-dev", "libxinerama-dev", "sharutils", "suckless-tools"]
+  tags:
+    - dwm

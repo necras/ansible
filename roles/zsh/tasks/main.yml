@@ -1,0 +1,12 @@
+- name: Install zsh
+  become: true
+  apt:
+    name: ["zsh", "zsh-common", "zsh-syntax-highlighting", "zsh-autosuggestions"]
+  tags:
+    - zsh
+
+- name: Change shell to zsh (requires restart)
+  become: true
+  shell: chsh -s $(which zsh)
+  tags:
+    - zsh

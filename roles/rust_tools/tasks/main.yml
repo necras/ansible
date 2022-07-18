@@ -1,0 +1,47 @@
+- name: Install alacritty
+  community.general.cargo:
+    name: alacritty
+  tags:
+    - rust_tools
+
+- name: Install starship prompt
+  community.general.cargo:
+    name: starship
+  tags:
+    - rust_tools
+
+- name: Install ripgrep (grep)
+  community.general.cargo:
+    name: ripgrep
+  tags:
+    - rust_tools
+
+- name: Install bat (cat)
+  community.general.cargo:
+    name: bat
+  tags:
+    - rust_tools
+
+- name: Install exa (ls / ll)
+  community.general.cargo:
+    name: exa
+  tags:
+    - rust_tools
+
+- name: Install fd (find)
+  community.general.cargo:
+    name: fd-find
+  tags:
+    - rust_tools
+
+- name: Install hyperfine (benchmarking cli)
+  community.general.cargo:
+    name: hyperfine
+  tags:
+    - rust_tools
+
+- name: Install tokei (code statistics grouped by language)
+  community.general.cargo:
+    name: tokei
+  tags:
+    - rust_tools
