@@ -21,6 +21,12 @@
   tags:
     - rust
 
+- name: Source Rust
+  when: cargo_exists is failed
+  shell: source $HOME/.cargo/env
+  tags:
+    - rust
+
 - name: Rust LSP dependency
   shell: rustup +nightly component add rust-analyzer-preview
   tags:
