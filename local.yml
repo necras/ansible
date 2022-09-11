@@ -9,8 +9,8 @@
     tags:
       - core
       - neovim
-      - zsh
       - dwm
+      - zsh
   roles:
     - core
     - neovim

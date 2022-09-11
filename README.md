@@ -12,6 +12,14 @@ ansible-playbook local.yml --ask-become-pass --skip-tags "dev, neovim"
 ansible-playbook local.yml --ask-become-pass --tags "core"
 ```
 
+requires ansible installation
+```sh
+sudo apt update
+sudo apt install python3-pip
+
+python3 -m pip install --user ansible
+```
+
 ### TODO
 - [ ] Add peek ppa
 - [ ] Make dwm installation with config idempotent, instead of removing the suckless folder
